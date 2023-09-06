@@ -5,11 +5,11 @@ import { connectToDB } from "../mongoose"
 import User from "../models/user.model"
 
 export async function getUser() {
-  connectToDB()
-  const clerkUser = auth()
-  const { firstName, lastName, username } = (await currentUser()) || {}
+  connectToDB() // connect to the DB
+  const clerkUser = auth() // get the user from clerk authentication
+  const { firstName, lastName, username } = (await currentUser()) || {} // get the name and username from the current clerk user, if there is none, create an empty object
   try {
-    const user = await User.findOne({ id: clerkUser.userId })
+    const user = await User.findOne({ id: clerkUser.userId }) // try to find this user in our DB using the user's name from clerk
     if (user) return user
 
     return await User.create({ id: clerkUser.userId, firstName: firstName, lastName: lastName, username: username })
