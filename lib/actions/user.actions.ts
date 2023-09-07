@@ -17,7 +17,8 @@ export async function getUser() {
     console.log("Error Message: ", err)
   }
 }
-interface UserUpdateOptions { // these are the props that can be used to update the user.
+interface UserUpdateOptions {
+  // these are the props that can be used to update the user.
   bio?: string
   username?: string
 }
@@ -26,7 +27,7 @@ export async function updateUser(options: UserUpdateOptions) {
   connectToDB() // connect to the DB
   const clerkUser = auth() // get the user from Clerk
   try {
-    await User.findOneAndUpdate({ id: clerkUser.userId }, { $set: options }, { upsert: true }) // Find and update the user with the clerk user id and set the other options that we pass in. 
+    await User.findOneAndUpdate({ id: clerkUser.userId }, { $set: options }, { upsert: true }) // Find and update the user with the clerk user id and set the other options that we pass in.
   } catch (err) {
     console.log("Error Message: ", err)
   }
