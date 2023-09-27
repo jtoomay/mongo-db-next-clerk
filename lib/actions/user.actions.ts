@@ -21,9 +21,11 @@ interface UserUpdateOptions {
   // these are the props that can be used to update the user.
   bio?: string
   username?: string
+  favoriteTeam?: string
 }
 
 export async function updateUser(options: UserUpdateOptions) {
+  console.log("options", options)
   connectToDB() // connect to the DB
   const clerkUser = auth() // get the user from Clerk
   try {
